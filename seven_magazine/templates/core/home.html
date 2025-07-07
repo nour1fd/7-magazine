@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - 3/7 Magazine{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-dark text-white text-center py-5 mb-4">
+    <h1 class="display-4">Welcome to 3/7 Magazine</h1>
+    <p class="lead">Your source for the latest lifestyle trends, tips, and insights for modern living.</p>
+</div>
+
+<section class="mb-5">
+    <h2 class="section-title">Featured Articles</h2>
+    <div class="row">
+        {% for article in featured_articles %}
+        <div class="col-md-{% if forloop.first %}12{% else %}6{% endif %} mb-4">
+            <div class="card h-100 article-card {% if forloop.first %}featured{% endif %}">
+                {% if article.image %}
+                <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <span class="badge bg-primary mb-2">{{ article.categories.first.name }}</span>
+                    <h{% if forloop.first %}2{% else %}5{% endif %} class="card-title">{{ article.title }}</h{% if forloop.first %}2{% else %}5{% endif %}>
+                    <p class="card-text">{{ article.excerpt|truncatewords:30 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="author">
+                            <small class="text-muted">{{ article.author.get_full_name|default:article.author.username }}</small>
+                            <br>
+                            <small class="text-muted">{{ article.author.user_type }}</small>
+                        </div>
+                        <a href="{% url 'article_detail' article.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No featured articles yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- More sections for recent articles, categories, etc. -->
+{% endblock %}

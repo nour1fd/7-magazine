@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+</head>
+<body>
+    <div class="registration-container">
+        <div class="form-header">
+            <h1>Create Your Account</h1>
+            <p>Join our community today</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="form-body">
+            {% csrf_token %}
+            
+            <!-- Left Column: Account Information -->
+            <div class="form-section">
+                <h2>Account Information</h2>
+                
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">Email Address</label>
+                    <input type="email" name="email" id="id_email" class="form-control" required>
+                </div>
+                
+                <div class="form-group password-toggle">
+                    <label for="id_password1">Password</label>
+                    <input type="password" name="password1" id="id_password1" class="form-control" required>
+                    <span class="toggle-icon" id="togglePassword1">👁️</span>
+                    <div class="progress-bar">
+                        <div class="progress" id="password-strength-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group password-toggle">
+                    <label for="id_password2">Confirm Password</label>
+                    <input type="password" name="password2" id="id_password2" class="form-control" required>
+                    <span class="toggle-icon" id="togglePassword2">👁️</span>
+                </div>
+            </div>
+            
+            <!-- Right Column: Profile Information -->
+            <div class="form-section">
+                <h2>Profile Information</h2>
+                
+                <div class="form-group">
+                    <label for="id_first_name">First Name</label>
+                    <input type="text" name="first_name" id="id_first_name" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_last_name">Last Name</label>
+                    <input type="text" name="last_name" id="id_last_name" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_bio">Bio</label>
+                    <textarea name="bio" id="id_bio" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_profile_image">Profile Image</label>
+                    <input type="file" name="profile_image" id="id_profile_image" class="form-control" accept="image/*">
+                    <div class="image-preview" id="imagePreview">
+                        <div class="image-preview-text">Image Preview</div>
+                        <img src="" alt="Profile Preview" id="previewImage">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Full Width Submit Button -->
+            <div class="form-group full-width">
+                <button type="submit" class="btn">Create Account</button>
+                <div class="login-link">
+                    Already have an account? <a href="#">Sign In</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>
